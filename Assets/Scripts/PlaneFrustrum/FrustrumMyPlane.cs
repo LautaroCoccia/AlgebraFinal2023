@@ -5,12 +5,12 @@ using CustomMath;
 public class FrustrumMyPlane : MonoBehaviour
 {
     public List<GameObject> cubeTests;
+    public BoundingBox bd;
     [SerializeField] bool rotate = false;
 
     public Transform pivot;
 
     public List<Transform> frusTransf;
-    
     Vec3 pivPos;
 
 
@@ -57,7 +57,7 @@ public class FrustrumMyPlane : MonoBehaviour
 
     void Update()
     {
-        if(rotate)
+        if (rotate)
         {
             ROTATE_POINT = new Vec3(pivot.position.x, pivot.position.y, pivot.position.z);
             RotateObjects();
@@ -67,22 +67,30 @@ public class FrustrumMyPlane : MonoBehaviour
 
         for (int i = 0; i < cubeTests.Count; i++)
         {
-            Vec3 aux = new Vec3(cubeTests[i].transform.position);
-            aux -= new Vec3(cubeTests[i].transform.localScale.x/2, cubeTests[i].transform.localScale.y / 2, cubeTests[i].transform.localScale.z / 2); 
-            if (DetectObject(aux))
+            int cant = cubeTests[i].GetComponent<BoundingBox>().GetBoundingBox().Count - 1;
+            int total = 0;
+            for (int j = 0; j < cant; j++)
             {
-                cubeTests[i].SetActive(true);
+                if (DetectObject(new Vec3(cubeTests[i].GetComponent<BoundingBox>().GetBoundingBox()[j].x, cubeTests[i].GetComponent<BoundingBox>().GetBoundingBox()[j].y, cubeTests[i].GetComponent<BoundingBox>().GetBoundingBox()[j].z)))
+                {
+                    total++;
+
+                }
+            }
+            if (total > 0)
+            {
+                //cubeTests[i].GetComponent<MeshRenderer>().enabled = true;
             }
             else
             {
-                cubeTests[i].SetActive(false);
+                //cubeTests[i].GetComponent<MeshRenderer>().enabled = false;
             }
         }
     }
 
     void UpdatePositionObjects()
     {
-        
+
 
         leftPlaneNormal = new Vec3(frusTransf[0].right);
         rightPlaneNormal = new Vec3(frusTransf[1].right);
@@ -118,7 +126,7 @@ public class FrustrumMyPlane : MonoBehaviour
                     aux += pivot.position.x - pivPos.x;
                     frusTransf[i].position = new Vector3(aux, frusTransf[i].position.y, frusTransf[i].position.z);
                 }
-                    pivPos = new Vec3(pivot.transform.position.x, pivPos.y, pivPos.z);
+                pivPos = new Vec3(pivot.transform.position.x, pivPos.y, pivPos.z);
             }
             else if (pivot.position.x < pivPos.x)
             {
@@ -127,7 +135,7 @@ public class FrustrumMyPlane : MonoBehaviour
                     float aux = frusTransf[i].position.x;
                     aux -= pivPos.x - pivot.position.x;
                     frusTransf[i].position = new Vector3(aux, frusTransf[i].position.y, frusTransf[i].position.z);
-            
+
                 }
                 pivPos = new Vec3(pivot.transform.position.x, pivPos.y, pivPos.z);
             }
@@ -137,7 +145,7 @@ public class FrustrumMyPlane : MonoBehaviour
                 {
                     float aux = frusTransf[i].position.y;
                     aux += pivot.position.y - pivPos.y;
-                    frusTransf[i].position = new Vector3( frusTransf[i].position.x, aux, frusTransf[i].position.z);
+                    frusTransf[i].position = new Vector3(frusTransf[i].position.x, aux, frusTransf[i].position.z);
                 }
                 pivPos = new Vec3(pivPos.x, pivot.transform.position.y, pivPos.z);
             }
@@ -147,7 +155,7 @@ public class FrustrumMyPlane : MonoBehaviour
                 {
                     float aux = frusTransf[i].position.y;
                     aux -= pivPos.y - pivot.position.y;
-                    frusTransf[i].position = new Vector3( frusTransf[i].position.y, aux, frusTransf[i].position.z);
+                    frusTransf[i].position = new Vector3(frusTransf[i].position.y, aux, frusTransf[i].position.z);
 
                 }
                 pivPos = new Vec3(pivPos.x, pivot.transform.position.y, pivPos.z);
@@ -173,7 +181,7 @@ public class FrustrumMyPlane : MonoBehaviour
                 }
                 pivPos = new Vec3(pivPos.x, pivPos.y, pivot.transform.position.z);
             }
-            
+
         }
         #endregion
     }
@@ -183,7 +191,7 @@ public class FrustrumMyPlane : MonoBehaviour
         {
             frusTransf[i].RotateAround(ROTATE_POINT, ROTATION_AXIS, SPEED_ROTATION * Time.deltaTime);
         }
-       
+
     }
 
     bool DetectObject(Vec3 cubePos)

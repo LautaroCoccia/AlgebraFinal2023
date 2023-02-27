@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CustomMath;
+    namespace CustomMath
+{
 public class TestMatriz : MonoBehaviour
 {
+
     [SerializeField] Matrix4x4 Matrix4;
     Matriz4x4 Matriz4;
     [SerializeField] Vector3 scaleVec;
@@ -40,4 +43,5 @@ public class TestMatriz : MonoBehaviour
     {
         
     }
+}
 }
