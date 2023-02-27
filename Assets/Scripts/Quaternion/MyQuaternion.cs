@@ -117,22 +117,17 @@ namespace CustomMath
         public void SetFromToRotation(Vec3 fromDirection, Vec3 toDirection)
         {
 
-            throw new NotImplementedException();
+            this = FromToRotation(fromDirection, toDirection);
         }
         public void SetLookRotation(Vec3 view, [DefaultValue("Vec3.Up")] Vec3 up)
         {
-            throw new NotImplementedException();
+            this = LookRotation(view, up);
 
         }
-        public void SetLookRotation(Vec3 view)
-        {
-            throw new NotImplementedException();
-
-        }
-        public void ToAngleAxis(out float angle, out Vec3 axis)
-        {
-            throw new NotImplementedException();
-        }
+        //public void ToAngleAxis(out float angle, out Vec3 axis)
+        //{
+        //    this = AngleAxis(angle, axis);
+        //}
 
         public override string ToString()
         {
