@@ -81,7 +81,7 @@ public class EjerciciosVector3 : MonoBehaviour
                 resultado = Vec3.Reflect(vecA, vecB);
                 break;
             case Ejercicio.diez:
-                resultado = Vec3.LerpUnclamped(vecA, vecB,t);
+                resultado = Vec3.LerpUnclamped(vecB, vecA,t);
                 if(t<50)
                 {
                     t += Time.deltaTime;
