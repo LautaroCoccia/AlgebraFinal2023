@@ -68,6 +68,7 @@ public class FrustrumMyPlane : MonoBehaviour
         for (int i = 0; i < cubeTests.Count; i++)
         {
             Vec3 aux = new Vec3(cubeTests[i].transform.position);
+            aux -= new Vec3(cubeTests[i].transform.localScale.x/2, cubeTests[i].transform.localScale.y / 2, cubeTests[i].transform.localScale.z / 2); 
             if (DetectObject(aux))
             {
                 cubeTests[i].SetActive(true);

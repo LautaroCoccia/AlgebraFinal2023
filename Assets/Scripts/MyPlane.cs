@@ -49,8 +49,7 @@ namespace CustomMath
         
         public Vec3 ClosestPointOnPlane(Vec3 point)
         {
-            Vec3 aux = (point - normal) / GetDistanceToPoint(point);
-            return aux;
+            return (point - normal) / GetDistanceToPoint(point);
         }
         public void Flip()
         {
@@ -59,8 +58,7 @@ namespace CustomMath
         }
         public float GetDistanceToPoint(Vec3 point)
         {
-            float aux = Vec3.Dot(point, normal) + distance ;
-            return aux;
+            return Vec3.Dot(point, normal) + distance ;
         }
         public bool GetSide(Vec3 point)
         {
